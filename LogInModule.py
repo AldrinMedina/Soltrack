@@ -8,15 +8,25 @@ class LogInModule:
 	async def LogIn(self, input_name, input_pass):
 		mydb = mysql.connector.connect(host="localhost", user="root", password="", database = "Capstone")
 		mycursor = mydb.cursor()
-		sql = "SELECT Id FROM Credentials WHERE Name = %s AND Password = %s"
-		val = (input_name, input_pass)
-		mycursor.execute(sql, val)
-		result = mycursor.fetchall()
-		if result:
-			UI.notify("Logging In")
-			UI.navigate.to('/MainPage')
+		if input_name == "Joseph M.":
+			if input_pass == "12345":
+				UI.notify("Logging In")
+				UI.navigate.to('/MainPage')
+			else:
+				UI.notify("Wrong password.")
 		else:
-			UI.notify ("Wrong password/email")
+			UI.notify("No account found.")
+		
+
+		#sql = "SELECT Id FROM Credentials WHERE Name = %s AND Password = %s"
+		#val = (input_name, input_pass)
+		#mycursor.execute(sql, val)
+		#result = mycursor.fetchall()
+		#if result:
+		#	UI.notify("Logging In")
+		#	UI.navigate.to('/MainPage')
+		#else:
+		#	UI.notify ("Wrong password/email")
 	def __init__(self):
 	
 		with UI.row().style('width: 100%; height: 100vh;').classes("justify-center items-center bg-blue-100"):
