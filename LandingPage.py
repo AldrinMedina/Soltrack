@@ -132,12 +132,15 @@ async def private_page():
 
 # --- Login ---
 @ui.page('/LogInPage',  reconnect_timeout = 5000)
+
+
+
 async def private_page():
     await ui.context.client.connected()
     HM = HeaderModule()
     HM
     LM = LogInModule()
-    LM.LogInBtn.on("click", lambda: ui.navigate.to('/MMPage'))
+    LM.LogInBtn.on("click", lambda:LM.LogIn(LM.Name.value, LM.Pass.value))
 
 @ui.page('/MMPage', reconnect_timeout=5000)
 async def private_page():
