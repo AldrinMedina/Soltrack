@@ -25,7 +25,7 @@ class LogInModule:
 		#	UI.notify("No account found.")
 		
 
-		sql = "SELECT Id FROM Credentials WHERE Name = %s AND Password = %s"
+		sql = "SELECT id FROM users WHERE name = %s AND password = %s"
 		val = (input_name, input_pass)
 		mycursor.execute(sql, val)
 		result = mycursor.fetchall()
