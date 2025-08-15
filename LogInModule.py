@@ -1,3 +1,4 @@
+import os
 from nicegui import ui as UI
 from HeaderModule import HeaderModule
 import mysql.connector
