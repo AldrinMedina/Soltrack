@@ -1,3 +1,4 @@
+import os
 from nicegui import ui 
 
 
@@ -16,4 +17,7 @@ class NavBar:
                 with self.Accounts:
                     ui.icon("account_circle")
 
-ui.run()
+ui.run(
+    host="0.0.0.0",
+    port=int(os.getenv("PORT", 8080))  # Render sets PORT
+)

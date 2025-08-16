@@ -1,3 +1,4 @@
+import os
 from nicegui import ui as UI
 from HeaderModule import HeaderModule
 js_code = '''
@@ -38,4 +39,7 @@ class MMModule:
 				self.Continue = UI.button("Continue").style("width: 100%;").disable()
 
 
-UI.run()
+UI.run(
+    host="0.0.0.0",
+    port=int(os.getenv("PORT", 8080))  # Render sets PORT
+)

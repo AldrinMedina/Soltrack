@@ -1,3 +1,4 @@
+import os
 from nicegui import ui
 from HeaderModule import HeaderModule
 from LogInModule import LogInModule
@@ -183,4 +184,7 @@ async def private_page():
 #         ui.link('GitHub', 'https://github.com/').classes('text-white hover:underline')
 #         ui.link('Contact Us', '#').classes('text-white hover:underline')
 
-ui.run(port = 8081, native = True)
+ui.run(
+    host="0.0.0.0",
+    port=int(os.getenv("PORT", 8080))  # Render sets PORT
+)

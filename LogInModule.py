@@ -6,7 +6,7 @@ import mysql.connector
 
 class LogInModule:
 
-	async def LogIn(self, input_name, input_pass):
+    async def LogIn(self, input_name, input_pass):
         try:
             mydb = mysql.connector.connect(
                 host=os.getenv("MYSQLHOST"),
@@ -27,7 +27,6 @@ class LogInModule:
                 UI.navigate.to('/MainPage')
             else:
                 UI.notify("Wrong username or password")
-
         except Exception as e:
             UI.notify(f"Database error: {e}")
 
