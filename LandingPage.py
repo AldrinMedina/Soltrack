@@ -7,7 +7,7 @@ from MainModule import MainModule
 from FooterModule import FooterModule
 from NavBar import NavBar
 from solcx import compile_source, compile_standard, install_solc, get_installable_solc_versions
-
+from web3 import Web3
 # Enhanced styling with modern CSS
 ui.page_title('Soltrack | Smarter Vaccine Logistics')
 ui.add_head_html('<link rel="preconnect" href="https://fonts.googleapis.com">')
@@ -361,8 +361,13 @@ async def private_page():
     await ui.context.client.connected()
     ui.page_title("SolTrack | Dashboard")
     HeaderModule()
-    MainModule()
-
+    ganache_url = "http://127.0.0.1:8545"  
+    web3 = Web3(Web3.HTTPProvider(ganache_url))
+    accounts = web3.eth.accounts
+    if len(accounts) >= 3:
+     ui.notify("\nFirst 3 Accounts:")
+     for i in range(3):
+      ui.notify(f"Account {i+1}: {accounts[i]}")
 ui.run(
     host="0.0.0.0",
     port=int(os.getenv("PORT", 8080))
