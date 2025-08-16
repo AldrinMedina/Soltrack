@@ -44,4 +44,7 @@ class LogInModule:
 
 # Run app
 LogInModule()
-UI.run()
+UI.run(
+	host="0.0.0.0",
+    port=int(os.getenv("PORT", 8080))
+)
