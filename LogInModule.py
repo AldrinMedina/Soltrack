@@ -335,9 +335,9 @@ class LogInModule:
                             UI.icon('info').classes('text-sm')
                             UI.label('Demo Credentials')
                         UI.label('Username:').classes('text-xs text-slate-600')
-                        UI.label('admin').classes('demo-cred')
+                        UI.label('admin_acc').classes('demo-cred')
                         UI.label('Password:').classes('text-xs text-slate-600')
-                        UI.label('password123').classes('demo-cred')
+                        UI.label('admin_acc1234').classes('demo-cred')
 
 # Run app
 if __name__ == "__main__":
