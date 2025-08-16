@@ -209,7 +209,7 @@ async def private_page():
                         ui.element('div').classes('w-3 h-3 bg-green-400 rounded-full pulse-dot mr-3')
                         ui.label('Live Vaccine Tracking').classes('text-white/80 text-sm font-medium')
                     
-                    ui.label('Revolutionizing Vaccine Logistics').classes('text-6xl font-bold text-white mb-4 leading-tight')
+                    ui.label('Revolutionizing Vaccine Logistics').classes('text-6xl font-bold text-blue mb-4 leading-tight')
                     ui.label('with IoT & Blockchain Security').classes('text-6xl font-bold bg-gradient-to-r from-yellow-300 to-pink-300 bg-clip-text text-transparent mb-6 leading-tight')
                     
                     ui.label('Soltrack ensures safe, tamper-proof delivery of temperature-sensitive vaccines — from factory to facility with real-time monitoring and smart contract automation.').classes('text-xl text-white/90 mb-8 leading-relaxed')
