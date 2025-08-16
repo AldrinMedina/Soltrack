@@ -1,19 +1,20 @@
 import os
 from nicegui import ui as UI
 from HeaderModule import HeaderModule
-import mysql.connector
+import pymysql
 
 
 class LogInModule:
 
     async def LogIn(self, input_name, input_pass):
         try:
-            mydb = mysql.connector.connect(
+            mydb = pymysql.connect(
                 host=os.getenv("MYSQLHOST"),
                 user=os.getenv("MYSQLUSER"),
                 password=os.getenv("MYSQLPASSWORD"),
                 database=os.getenv("MYSQLDATABASE"),
-                port=int(os.getenv("MYSQLPORT", 3306))
+                port=int(os.getenv("MYSQLPORT", 3306)),
+                cursorclass=pymysql.cursors.DictCursor
             )
             mycursor = mydb.cursor()
 

@@ -1,5 +1,4 @@
 nicegui==2.16.1
 web3==7.11.1
 py-solc-x==2.0.3
-mysql-connector==2.2.9
-mysql==0.0.3
+pymysql==1.1.1

@@ -1,5 +1,5 @@
 from nicegui import ui
-import mysql.connector
+import pymysql
 from web3 import Web3
 from solcx import compile_source, compile_standard, install_solc, get_installable_solc_versions, get_solc_version
 import json
@@ -12,7 +12,7 @@ class MainModule:
 			ganache_url = "http://127.0.0.1:7545"  
 			web3 = Web3(Web3.HTTPProvider(ganache_url))
 			accounts = web3.eth.accounts
-			mydb = mysql.connector.connect(host="localhost", user="root", password="", database = "Capstone")
+			mydb = pymysql.connect(host="localhost", user="root", password="", database = "Capstone")
 			mycursor = mydb.cursor()
 			
 			solidity_code = '''
