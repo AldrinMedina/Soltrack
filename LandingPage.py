@@ -361,7 +361,7 @@ async def private_page():
     await ui.context.client.connected()
     ui.page_title("SolTrack | Dashboard")
     HeaderModule()
-    ganache_url = "http://127.0.0.1:8545"  
+    ganache_url = "http://127.0.0.1:7545"  
     web3 = Web3(Web3.HTTPProvider(ganache_url))
     accounts = web3.eth.accounts
     if len(accounts) >= 3:
@@ -371,4 +371,5 @@ async def private_page():
 ui.run(
     host="0.0.0.0",
     port=int(os.getenv("PORT", 8080))
+
 )
