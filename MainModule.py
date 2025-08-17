@@ -9,7 +9,7 @@ import datetime
 
 class MainModule:
 		def __init__(self):
-			ganache_url = "http://127.0.0.1:7545"  
+			ganache_url = "http://127.0.0.1:8545"  
 			web3 = Web3(Web3.HTTPProvider(ganache_url))
 			accounts = web3.eth.accounts
 			mydb = pymysql.connect(host="localhost", user="root", password="", database = "Capstone")
