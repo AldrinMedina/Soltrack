@@ -92,14 +92,14 @@ async function connectMetaMask() {
 				web3.eth.wait_for_transaction_receipt(tx_hash2)
 				current_datetime = datetime.datetime.now()
 				formatted_datetime = current_datetime.strftime('%Y-%m-%d %H:%M')
-				sql = "INSERT INTO Contract_Table (Abi, Address, CreationDate, Finished, BuyerAddress, SellerAddress, PaymentAmount, Vaccine) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+				sql = "INSERT INTO Contracts (Abi, Address, CreationDate, Finished, BuyerAddress, SellerAddress, PaymentAmount, Vaccine) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
 				val = (abi_json, contract_address, formatted_datetime, 0, From, To, Pay, Vacc)
 				mycursor.execute(sql, val)
 				mydb.commit()
 				ui.navigate.reload()
 
 			def Refund(IdTarg):
-				mycursor.execute(f"SELECT Abi, Address FROM Contract_Table WHERE Id = {IdTarg}")
+				mycursor.execute(f"SELECT Abi, Address FROM Contracts WHERE Id = {IdTarg}")
 				ContractInfo = mycursor.fetchone()
 				Abi, Address = ContractInfo
 				contract = web3.eth.contract(address=Address, abi=Abi)
@@ -112,13 +112,13 @@ async function connectMetaMask() {
     				})
 				web3.eth.wait_for_transaction_receipt(tx_hash)
 				activation_date = datetime.datetime.now()
-				updatequery = "UPDATE Contract_Table SET Finished = %s, ActivationDate = %s WHERE Id = %s"
+				updatequery = "UPDATE Contracts SET Finished = %s, ActivationDate = %s WHERE Id = %s"
 				mycursor.execute(updatequery, (1,activation_date.strftime('%Y-%m-%d %H:%M'), IdTarg))
 				mydb.commit()
 				ui.navigate.reload()
 
 			def ForwardPay(IdTarg):
-				mycursor.execute(f"SELECT Abi, Address FROM Contract_Table WHERE Id = {IdTarg}")
+				mycursor.execute(f"SELECT Abi, Address FROM Contracts WHERE Id = {IdTarg}")
 				ContractInfo = mycursor.fetchone()
 				Abi, Address = ContractInfo
 				contract = web3.eth.contract(address=Address, abi=Abi)
@@ -131,7 +131,7 @@ async function connectMetaMask() {
     				})
 				web3.eth.wait_for_transaction_receipt(tx_hash)
 				activation_date = datetime.datetime.now()
-				updatequery = "UPDATE Contract_Table SET Finished = %s, ActivationDate = %s WHERE Id = %s"
+				updatequery = "UPDATE Contracts SET Finished = %s, ActivationDate = %s WHERE Id = %s"
 				mycursor.execute(updatequery, (1,activation_date.strftime('%Y-%m-%d %H:%M'), IdTarg))
 				mydb.commit()
 				ui.navigate.reload()
@@ -186,7 +186,7 @@ async function connectMetaMask() {
 				with ui.tab_panel(Secundus).classes("fade-in"):
 					with ui.column().classes("w-full"):
 						ui.label("Click an action to mark contract status").classes("text-md text-gray-600 mb-2")
-						mycursor.execute("SELECT Id, Address, CreationDate FROM Contract_Table WHERE Finished = 0")
+						mycursor.execute("SELECT Id, Address, CreationDate FROM Contracts WHERE Finished = 0")
 						myresult = mycursor.fetchall()
 						with ui.list().props('dense separator'):
 							ui.item_label('Active Contracts').props('header').classes('text-bold text-blue-900')
@@ -204,7 +204,7 @@ async function connectMetaMask() {
 				# Finished Contracts
 				with ui.tab_panel(Triarii).classes("fade-in"):
 					with ui.column().classes("w-full"):
-						mycursor.execute("SELECT Address, ActivationDate FROM Contract_Table WHERE Finished = 1")
+						mycursor.execute("SELECT Address, ActivationDate FROM Contracts WHERE Finished = 1")
 						myresult = mycursor.fetchall()
 						with ui.list().props('dense separator'):
 							ui.item_label('Completed Contracts').props('header').classes('text-bold text-blue-900')
