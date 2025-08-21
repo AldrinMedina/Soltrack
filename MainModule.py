@@ -12,7 +12,14 @@ class MainModule:
 			ganache_url = "http://127.0.0.1:8545"  
 			web3 = Web3(Web3.HTTPProvider(ganache_url))
 			accounts = web3.eth.accounts
-			mydb = pymysql.connect(host="localhost", user="root", password="", database = "Capstone")
+			mydb = pymysql.connect(
+				host=os.getenv("MYSQLHOST"),
+				user=os.getenv("MYSQLUSER"),
+				password=os.getenv("MYSQLPASSWORD"),
+				database=os.getenv("MYSQLDATABASE"),
+				port=int(os.getenv("MYSQLPORT", 3306)),
+				cursorclass=pymysql.cursors.DictCursor
+			)
 			mycursor = mydb.cursor()
 			
 			solidity_code = '''
