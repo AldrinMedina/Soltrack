@@ -368,10 +368,13 @@ async def private_page():
         ui.notify("\nFirst 3 Accounts:")
         for i in range(3):
             ui.notify(f"Account {i+1}: {accounts[i]}")
+    MainModule()
+
 ui.run(
     host="0.0.0.0",
     port=int(os.getenv("PORT", 8080))
 
 )
+
 
 
