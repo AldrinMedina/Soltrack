@@ -11,8 +11,7 @@ from web3.exceptions import TransactionNotFound
 
 class MainModule:
     def __init__(self):
-        # Your API Key and Private Key should be loaded from environment variables
-        # For this example, I am hardcoding them. In a real application, use a .env file.
+  
         infura_url = os.getenv ("SEPOLIAAPIKEY")
         private_key  = os.getenv("OWNERPRIVATEKEY")  
 
@@ -20,13 +19,16 @@ class MainModule:
         web3.middleware_onion.inject(ExtraDataToPOAMiddleware, layer=0)        
         owner_account = web3.eth.account.from_key(private_key)
 
-        # The other addresses are for the contract's participants
         address1 = owner_account.address
         address2 = "0xEb8f64FDf7537086E9E3AA720c7e06217f62156F"  
         address3 = "0xEb8f64FDf7537086E9E3AA720c7e06217f62156F"  
 
         # Database connection
-        mydb = pymysql.connect(host= os.getenv("MYSQLHOST"), user= os.getenv("MYSQLUSER"), password = os.getenv("MYSQLPASSWORD"), database=os.getenv("MYSQLDATABASE"))
+        mydb = pymysql.connect(
+            host= os.getenv("MYSQLHOST"), 
+            user= os.getenv("MYSQLUSER"), 
+            password = os.getenv("MYSQLPASSWORD"), 
+            database = os.getenv("MYSQLDATABASE"))
         mycursor = mydb.cursor()
 
         solidity_code = '''
@@ -60,7 +62,6 @@ contract SimpleTransfer {
             bytecode = contract_interface['bin']
             SimpleTransfer = web3.eth.contract(abi=abi, bytecode=bytecode)
             
-            # This is the new, correct way to send a transaction on Sepolia
             nonce = web3.eth.get_transaction_count(address1)
             tx = SimpleTransfer.constructor().build_transaction({
                 'from': address1,
@@ -75,7 +76,6 @@ contract SimpleTransfer {
             abi_json = json.dumps(abi)
             contract = web3.eth.contract(address=contract_address, abi=abi)
             
-            # This second transaction also needs to be signed
             nonce2 = web3.eth.get_transaction_count(address1)
             tx2 = contract.functions.Refund(web3.to_checksum_address(address3)).build_transaction({
                 'from': address1,
