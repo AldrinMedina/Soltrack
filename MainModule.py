@@ -5,7 +5,7 @@ from solcx import compile_source
 import json
 import os
 import datetime
-from web3.middleware import geth_poa_middleware
+from web3.middleware import ExtraDataToPOAMiddleware
 from web3.exceptions import TransactionNotFound
 
 
@@ -17,8 +17,7 @@ class MainModule:
         private_key  = os.getenv("OWNERPRIVATEKEY")  
 
         web3 = Web3(Web3.HTTPProvider(infura_url))
-        web3.middleware_onion.inject(geth_poa_middleware, layer=0)
-        
+        web3.middleware_onion.inject(ExtraDataToPOAMiddleware, layer=0)        
         owner_account = web3.eth.account.from_key(private_key)
 
         # The other addresses are for the contract's participants
