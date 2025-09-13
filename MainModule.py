@@ -55,16 +55,16 @@ contract SimpleTransfer {
             Secundus = ui.tab('Ongoing Contracts')
             Triarii = ui.tab('Finished Contracts')
 
-                with ui.tab_panels(tabs, value=Primary).classes('w-full p-6 bg-gray-100 rounded-b-xl shadow-lg'):
+        with ui.tab_panels(tabs, value=Primary).classes('w-full p-6 bg-gray-100 rounded-b-xl shadow-lg'):
             
             # Contract Creation
             with ui.tab_panel(Primary).classes("gap-8 fade-in"):
                 with ui.row().classes("w-full justify-between"):
                     with ui.column().classes("bg-white p-4 rounded-xl shadow-md w-1/3"):
                         ui.label("Account Details").classes("text-lg font-semibold mb-2")
-                        Eth1 = int(web3.from_wei(web3.eth.get_balance(address1), 'ether'))
-                        Eth2 = int(web3.from_wei(web3.eth.get_balance(address2), 'ether'))
-                        Eth3 = int(web3.from_wei(web3.eth.get_balance(address3), 'ether'))
+                        Eth1 = web3.from_wei(web3.eth.get_balance(address1), 'ether')
+                        Eth2 = web3.from_wei(web3.eth.get_balance(address2), 'ether')
+                        Eth3 = web3.from_wei(web3.eth.get_balance(address3), 'ether')
                         ui.label(f"Buyer: {Eth1} ETH")
                         ui.label(f"Seller: {Eth2} ETH")
                         ui.label(f"3rd Party: {Eth3} ETH")
