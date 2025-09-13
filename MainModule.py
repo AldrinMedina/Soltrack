@@ -28,7 +28,8 @@ class MainModule:
             host= os.getenv("MYSQLHOST"), 
             user= os.getenv("MYSQLUSER"), 
             password = os.getenv("MYSQLPASSWORD"), 
-            database = os.getenv("MYSQLDATABASE"))
+            database = os.getenv("MYSQLDATABASE"),
+            port = int(os.getenv("MYSQLPORT"))
         mycursor = mydb.cursor()
         solidity_code = '''
 pragma solidity  0.5.16;
