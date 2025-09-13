@@ -21,7 +21,7 @@ class MainModule:
 
         address1 = owner_account.address
         address2 = "0x1A947d2CfcF6a4EF915a4049077BfE9acc7Ddb0D"  
-        address3 = "0xEb8f64FDf7537086E9E3AA720c7e06217f62156F"  
+        address3 = "0xe6909292b6b108FAa7C8b908d0bD8Efcc57A5078"  
 
         # Database connection
         mydb = pymysql.connect(
