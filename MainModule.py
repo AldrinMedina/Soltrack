@@ -191,4 +191,4 @@ contract SimpleTransfer {
             # Finished Contracts
             with ui.tab_panel(Triarii).classes("fade-in"):
                 with ui.column().classes("w-full"):
-                  
+                    ui.label("Click an action to mark contract status").classes("text-md text-gray-600 mb-2")
