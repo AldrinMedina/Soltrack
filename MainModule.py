@@ -44,7 +44,14 @@ contract SimpleTransfer {
     }
 }
 '''
-        with ui.tab_panel(Primary).classes("gap-8 fade-in"):
+        with ui.tabs().classes('w-full shadow-md rounded-xl bg-white text-blue-900') as tabs:
+            Primary = ui.tab('Contract Creation')
+
+
+        with ui.tab_panels(tabs, value=Primary).classes('w-full p-6 bg-gray-100 rounded-b-xl shadow-lg'):
+            
+            # Contract Creation
+            with ui.tab_panel(Primary).classes("gap-8 fade-in"):
                 with ui.row().classes("w-full justify-between"):
                     with ui.column().classes("bg-white p-4 rounded-xl shadow-md w-1/3"):
                         ui.label("Account Details").classes("text-lg font-semibold mb-2")
@@ -76,10 +83,6 @@ contract SimpleTransfer {
                         self.FromWhom = ui.input(label='Buyer', placeholder='Your Address', value=address1).classes("w-full mb-2")
                         self.ToWhom = ui.input(label='Seller', placeholder='Seller Address', value=address2).classes("w-full mb-2")
                         ByWhom = ui.input(label='3rd Party', placeholder='3rd Party Address', value=address3).classes("w-full")
-
-      
-        
-
 
       
 
