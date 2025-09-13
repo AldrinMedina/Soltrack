@@ -15,10 +15,9 @@ class MainModule:
         web3 = Web3(Web3.HTTPProvider(infura_url))
         address1 = "0xEb8f64FDf7537086E9E3AA720c7e06217f62156F"
         
-    if web3.is_connected():
+
         ui.label("Connection to Sepolia RPC successful!")
         balance_wei = web3.eth.get_balance(address1)
         balance_eth = web3.from_wei(balance_wei, 'ether')
         ui.label(f"Balance of {address1}: {balance_eth} ETH")
-    else:
-        ui.notify("Connection failed. Check your API key and network status.")
+
