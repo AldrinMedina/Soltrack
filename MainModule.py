@@ -95,7 +95,7 @@ contract SimpleTransfer {
             with ui.tab_panel(Secundus).classes("fade-in"):
                 with ui.column().classes("w-full"):
                     ui.label("Click an action to mark contract status").classes("text-md text-gray-600 mb-2")
-                    mycursor.execute("SELECT Id, Address, CreationDate FROM Contract_Table WHERE Finished = 0")
+                    mycursor.execute("SELECT Id, Address, CreationDate FROM Contracts WHERE Finished = 0")
                     myresult = mycursor.fetchall()
                     with ui.list().props('dense separator'):
                         ui.item_label('Active Contracts').props('header').classes('text-bold text-blue-900')
@@ -113,7 +113,7 @@ contract SimpleTransfer {
             # Finished Contracts
             with ui.tab_panel(Triarii).classes("fade-in"):
                 with ui.column().classes("w-full"):
-                    mycursor.execute("SELECT Address, ActivationDate FROM Contract_Table WHERE Finished = 1")
+                    mycursor.execute("SELECT Address, ActivationDate FROM Contracts WHERE Finished = 1")
                     myresult = mycursor.fetchall()
                     with ui.list().props('dense separator'):
                         ui.item_label('Completed Contracts').props('header').classes('text-bold text-blue-900')
