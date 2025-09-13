@@ -52,9 +52,10 @@ contract SimpleTransfer {
 '''
         with ui.tabs().classes('w-full shadow-md rounded-xl bg-white text-blue-900') as tabs:
             Primary = ui.tab('Contract Creation')
+            Secundus = ui.tab('Ongoing Contracts')
+            Triarii = ui.tab('Finished Contracts')
 
-
-        with ui.tab_panels(tabs, value=Primary).classes('w-full p-6 bg-gray-100 rounded-b-xl shadow-lg'):
+                with ui.tab_panels(tabs, value=Primary).classes('w-full p-6 bg-gray-100 rounded-b-xl shadow-lg'):
             
             # Contract Creation
             with ui.tab_panel(Primary).classes("gap-8 fade-in"):
@@ -90,6 +91,39 @@ contract SimpleTransfer {
                         self.ToWhom = ui.input(label='Seller', placeholder='Seller Address', value=address2).classes("w-full mb-2")
                         ByWhom = ui.input(label='3rd Party', placeholder='3rd Party Address', value=address3).classes("w-full")
 
-      
+            # Ongoing Contracts
+            with ui.tab_panel(Secundus).classes("fade-in"):
+                with ui.column().classes("w-full"):
+                    ui.label("Click an action to mark contract status").classes("text-md text-gray-600 mb-2")
+                    mycursor.execute("SELECT Id, Address, CreationDate FROM Contract_Table WHERE Finished = 0")
+                    myresult = mycursor.fetchall()
+                    with ui.list().props('dense separator'):
+                        ui.item_label('Active Contracts').props('header').classes('text-bold text-blue-900')
+                        for x in myresult:
+                            Id, address, date = x
+                            short_address = address[:6] + "..." + address[-4:]
+                            with ui.item().classes("hover:bg-gray-200 rounded-lg"):
+                                with ui.item_section():
+                                    ui.item_label(f"Contract Address: {short_address}")
+                                    ui.item_label(f"Created: {date}")
+                                with ui.item_section().classes("gap-2"):
+                                    ui.button("Success", on_click=lambda x=x: ForwardPay(f'{Id}')).classes("bg-green-600 text-white")
+                                    ui.button("Refund", on_click=lambda x=x: Refund(f'{Id}')).classes("bg-red-600 text-white")
+
+            # Finished Contracts
+            with ui.tab_panel(Triarii).classes("fade-in"):
+                with ui.column().classes("w-full"):
+                    mycursor.execute("SELECT Address, ActivationDate FROM Contract_Table WHERE Finished = 1")
+                    myresult = mycursor.fetchall()
+                    with ui.list().props('dense separator'):
+                        ui.item_label('Completed Contracts').props('header').classes('text-bold text-blue-900')
+                        for x in myresult:
+                            address, date = x
+                            short_address = address[:6] + "..." + address[-4:]
+                            with ui.item().classes("hover:bg-gray-200 rounded-lg"):
+                                with ui.item_section():
+                                    ui.item_label(f"Contract Address: {short_address}")
+                                    ui.item_label(f"Activated: {date}")
+
 
        
