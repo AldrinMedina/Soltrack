@@ -50,6 +50,38 @@ contract SimpleTransfer {
     }
 }
 '''
+        with ui.tab_panel(Primary).classes("gap-8 fade-in"):
+                with ui.row().classes("w-full justify-between"):
+                    with ui.column().classes("bg-white p-4 rounded-xl shadow-md w-1/3"):
+                        ui.label("Account Details").classes("text-lg font-semibold mb-2")
+                        Eth1 = int(web3.from_wei(web3.eth.get_balance(address1), 'ether'))
+                        Eth2 = int(web3.from_wei(web3.eth.get_balance(address2), 'ether'))
+                        Eth3 = int(web3.from_wei(web3.eth.get_balance(address3), 'ether'))
+                        ui.label(f"Buyer: {Eth1} ETH")
+                        ui.label(f"Seller: {Eth2} ETH")
+                        ui.label(f"3rd Party: {Eth3} ETH")
+
+                    with ui.column().classes("bg-white p-4 rounded-xl shadow-md w-1/3"):
+                        ui.label("Payment Details").classes("text-lg font-semibold mb-2")
+                        self.PayAmnt = ui.input(label='Payment Amount', value=20).classes("w-full mb-2")
+                        ui.input(label='Service Fee', value=5).classes("w-full mb-1")
+                        ui.label("*One-time service charge").classes("text-sm text-gray-500")
+                        with ui.row().classes("mt-4 w-full items-center"):
+                            ui.label("Select Vaccine").classes("text-md font-medium")
+                            self.Vaccine = ui.select(["Pfizer", "Moderna", "AstraZeneca"], value="Pfizer").classes("w-1/4")
+                        ui.separator()
+                        ui.button("Confirm Contract", on_click=lambda: Deploy(
+                            self.FromWhom.value,
+                            self.ToWhom.value,
+                            self.Vaccine.value,
+                            int(self.PayAmnt.value)
+                        )).classes("bg-blue-800 text-white hover:bg-blue-900 w-full mt-4")
+
+                    with ui.column().classes("bg-white p-4 rounded-xl shadow-md w-1/3"):
+                        ui.label("Contract Info").classes("text-lg font-semibold mb-2")
+                        self.FromWhom = ui.input(label='Buyer', placeholder='Your Address', value=address1).classes("w-full mb-2")
+                        self.ToWhom = ui.input(label='Seller', placeholder='Seller Address', value=address2).classes("w-full mb-2")
+                        ByWhom = ui.input(label='3rd Party', placeholder='3rd Party Address', value=address3).classes("w-full")
 
       
         
@@ -57,7 +89,4 @@ contract SimpleTransfer {
 
       
 
-            # Finished Contracts
-            with ui.tab_panel(Triarii).classes("fade-in"):
-                with ui.column().classes("w-full"):
-                    ui.label("Click an action to mark contract status").classes("text-md text-gray-600 mb-2")
+       
