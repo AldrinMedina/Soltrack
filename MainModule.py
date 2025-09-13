@@ -24,13 +24,7 @@ class MainModule:
         address3 = "0xEb8f64FDf7537086E9E3AA720c7e06217f62156F"  
 
         # Database connection
-        mydb = pymysql.connect(
-            host= os.getenv("MYSQLHOST"), 
-            user= os.getenv("MYSQLUSER"), 
-            password = os.getenv("MYSQLPASSWORD"), 
-            database = os.getenv("MYSQLDATABASE"))
-        mycursor = mydb.cursor()
-
+   
         solidity_code = '''
 pragma solidity  0.5.16;
 
