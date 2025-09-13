@@ -1,3 +1,4 @@
+import os
 from nicegui import ui 
 
 
@@ -10,4 +11,8 @@ class FooterModule:
                 ui.link('GitHub', 'https://github.com/').classes('text-white hover:underline')
                 ui.link('Contact Us', '#').classes('text-white hover:underline')
 
-ui.run()
+
+ui.run(
+        host="0.0.0.0",
+        port=int(os.getenv("PORT", 8080))
+    )
