@@ -16,10 +16,10 @@ class MainModule:
         address1 = "0xEb8f64FDf7537086E9E3AA720c7e06217f62156F"
         
         if web3.is_connected():
-            print("Connection to Sepolia RPC successful!")
+           ui.label("Connection to Sepolia RPC successful!")
             # Corrected: Using 'address1' which you defined, not 'address'
             balance_wei = web3.eth.get_balance(address1)
             balance_eth = web3.from_wei(balance_wei, 'ether')
-            print(f"Balance of {address1}: {balance_eth} ETH")
+            ui.label(f"Balance of {address1}: {balance_eth} ETH")
         else:
             print("Connection failed. Check your API key and network status.")
