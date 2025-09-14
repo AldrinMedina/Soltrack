@@ -3,57 +3,49 @@ from nicegui import ui as UI
 from HeaderModule import HeaderModule
 import psycopg2
 class LogInModule:
-
     async def LogIn(self, input_name, input_pass):
-    # Show loading state
-    self.LogInBtn.props('loading=true')
-    self.LogInBtn.text = 'Authenticating...'
-    conn = None
-    try:
-        # Establish connection to PostgreSQL database
-        conn = psycopg2.connect(
-            host=os.getenv("PGHOST"),
-            user=os.getenv("PGUSER"),
-            password=os.getenv("PGPASSWORD"),
-            dbname=os.getenv("PGDATABASE"),
-            port=os.getenv("PGPORT", 5432)
-        )
-        cur = conn.cursor()
-
-        # SQL query with placeholders
-        sql = "SELECT id FROM users WHERE name = %s AND password = %s"
-        val = (input_name, input_pass)
-        cur.execute(sql, val)
-        result = cur.fetchone()
-
-        if result:
-            UI.notify("🎉 Login Successful! Redirecting...", type='positive')
-            UI.navigate.to('/MainPage')
-        else:
-            UI.notify("❌ Invalid credentials. Please try again.", type='negative')
+        self.LogInBtn.props('loading=true')
+        self.LogInBtn.text = 'Authenticating...'
+        conn = None
+        try:
+            conn = psycopg2.connect(
+                host=os.getenv("PGHOST"),
+                user=os.getenv("PGUSER"),
+                password=os.getenv("PGPASSWORD"),
+                dbname=os.getenv("PGDATABASE"),
+                port=os.getenv("PGPORT", 5432)
+            )
+            cur = conn.cursor()
+            sql = "SELECT id FROM users WHERE name = %s AND password = %s"
+            val = (input_name, input_pass)
+            cur.execute(sql, val)
+            result = cur.fetchone()
+            
+            if result:
+                UI.notify("🎉 Login Successful! Redirecting...", type='positive')
+                UI.navigate.to('/MainPage')
+            else:
+                UI.notify("❌ Invalid credentials. Please try again.", type='negative')
             # Reset button state
+                self.LogInBtn.props('loading=false')
+                self.LogInBtn.text = 'Sign In'
+            
+        except Exception as e:
+            UI.notify(f"🔌 Connection Error: {str(e)}", type='negative')
+        # Reset button state
             self.LogInBtn.props('loading=false')
             self.LogInBtn.text = 'Sign In'
-            
-    except Exception as e:
-        UI.notify(f"🔌 Connection Error: {str(e)}", type='negative')
-        # Reset button state
-        self.LogInBtn.props('loading=false')
-        self.LogInBtn.text = 'Sign In'
-    finally:
-        if conn:
-            conn.close()
-
-async def handle_login(self):
-    # Validate inputs
-    if not self.Name.value.strip():
-        UI.notify("📝 Please enter your username or email", type='warning')
-        return
-    if not self.Pass.value.strip():
-        UI.notify("🔐 Please enter your password", type='warning')
-        return
-        
-    await self.LogIn(self.Name.value.strip(), self.Pass.value)
+        finally:
+            if conn:
+                conn.close()
+    async def handle_login(self):
+        if not self.Name.value.strip():
+            UI.notify("📝 Please enter your username or email", type='warning')
+            return
+        if not self.Pass.value.strip():
+            UI.notify("🔐 Please enter your password", type='warning')
+            return
+        await self.LogIn(self.Name.value.strip(), self.Pass.value)
 
     def __init__(self):
         # Add modern styling
